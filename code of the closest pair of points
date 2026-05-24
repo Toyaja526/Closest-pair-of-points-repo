@@ -1,0 +1,61 @@
+/* ============================================================
+ * Mini Project: Closest Pair of Points
+ * Algorithm   : Divide and Conquer
+ * Language    : C
+ * ============================================================ */
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+
+#define MAX 100
+
+/* Structure to represent a point */
+struct Point {
+    int x, y;
+};
+
+/* Function to calculate distance between two points */
+float distance(struct Point p1, struct Point p2) {
+    return sqrt((p1.x - p2.x)*(p1.x - p2.x) +
+                (p1.y - p2.y)*(p1.y - p2.y));
+}
+
+/* Brute force method */
+float bruteForce(struct Point P[], int n) {
+    float min = 99999;
+
+    for(int i = 0; i < n; i++) {
+        for(int j = i + 1; j < n; j++) {
+
+            float d = distance(P[i], P[j]);
+
+            if(d < min)
+                min = d;
+        }
+    }
+
+    return min;
+}
+
+int main() {
+
+    int n;
+
+    printf("Enter number of points: ");
+    scanf("%d", &n);
+
+    struct Point P[MAX];
+
+    printf("Enter x and y coordinates:\n");
+
+    for(int i = 0; i < n; i++) {
+        scanf("%d %d", &P[i].x, &P[i].y);
+    }
+
+    float result = bruteForce(P, n);
+
+    printf("Minimum distance = %.2f", result);
+
+    return 0;
+}
